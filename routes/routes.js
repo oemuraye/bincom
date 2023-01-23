@@ -1,11 +1,12 @@
 import express from "express";
-import Prevention from "sqlstring";
 
-import DB from "../database/connection.js";
-import { getPoll } from "../controllers/polls.js";
+import { getPollUnitResult, getLgaSummary, homePage } from "../controllers/polls.js";
 
 const router = express.Router();
 
-router.get("/", getPoll);
+
+router.get("/", homePage);
+router.get("/result/:id/lga", getLgaSummary);
+router.get("/result/:id/polling_unit", getPollUnitResult);
 
 export default router;
