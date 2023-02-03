@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/", homePage);
 router.get("/lga_info", getLga);
 router.post("/create", storeResult);
-router.get("/result/:id/lga", getLgaSummary);
+router.post("/result/lga", getLgaSummary);
 router.get("/result/:id/polling_unit", getPollUnitResult);
 
 export default router;

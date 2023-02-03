@@ -1,0 +1,45 @@
+<main>
+    {{> header}}
+
+        {{!-- <div class="table-responsive">
+        <table class="table table-bordered   table-striped" style="margin-top:100px">
+            <thead class="table__head">
+                <tr class="winner__table">
+                <th>result_id</th>
+                <th>polling_unit_uniqueid</th>
+                <th>party_abbreviation</th>
+                <th>party_score</th>
+                <th>entered_by_user</th>
+                <th>date_entered</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#go}}
+                <tr>
+                <td>{{result_id}}</td>
+                <td>{{polling_unit_uniqueid}}</td>
+                <td>{{party_abbreviation}}</td>
+                <td>{{party_score}}</td>
+                <td>{{entered_by_user}}</td>
+                <td>{{date_entered}}</td>
+                </tr>
+                {{else}}
+                <p></p>                
+                {{/go}}
+            </tbody>
+
+        </table>
+    </div> --}}
+
+    {{#uniqueid}}
+    <p>{{uniqueid}}</p>
+    {{else}}
+    <p>Go back home</p>
+    {{/uniqueid}}
+    {{!-- {{#polling_unit_results}}
+    <p>{{polling_unit_results}}</p>
+    {{else}}
+    <p>Go back home</p>
+    {{/polling_unit_results}} --}}
+
+</main>
