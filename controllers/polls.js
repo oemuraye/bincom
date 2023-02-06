@@ -59,18 +59,18 @@ export const getLgaSummary = async (req, res) => {
           console.log(err);
         } else {
           const uniqueid = pollingUnitResult.map(data => data)
-          res.status(200).render("summary", {uniqueid});
-            // DB.query(
-            //   `SELECT * FROM announced_pu_results where polling_unit_uniqueid = ${lga_id}`,
-            //   (err, polling_unit_results) => {
-            //     if (err) {
-            //       console.log(err);
-            //     } else {
-            //       // console.log(polling_unit_results);
-            //       res.status(200).render("summary", {polling_unit_results});
-            //     }
-            //   }
-            // );
+          // res.status(200).render("summary", {uniqueid});
+            DB.query(
+              `SELECT * FROM announced_pu_results where polling_unit_uniqueid = ${lga_id}`,
+              (err, polling_unit_results) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  // console.log(polling_unit_results);
+                  res.status(200).render("summary", {uniqueid, polling_unit_results});
+                }
+              }
+            );
         }
       }
     );

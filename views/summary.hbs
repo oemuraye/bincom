@@ -31,11 +31,30 @@
         </table>
     </div> --}}
 
-    {{#uniqueid}}
-    <p>{{uniqueid}}</p>
-    {{else}}
-    <p>Go back home</p>
-    {{/uniqueid}}
+    <div class="row d-flex m-2">
+        <div class="col-5 border-end">
+            {{#uniqueid}}
+            <div class="d-flex justify-content-around">
+                <p>lga_id: {{lga_id}}</p>
+                <p>uniqueid: {{uniqueid}}</p>
+                <p>polling_unit_id: {{polling_unit_id}}</p>
+            </div>
+            {{else}}
+            <p>Go back home</p>
+            {{/uniqueid}}
+        </div>
+        <div class="col-7">
+            {{#polling_unit_results}}
+            <div class="d-flex justify-content-around">
+                <p>polling_unit_uniqueid: {{polling_unit_uniqueid}}</p>
+                <p>party_abbreviation: {{party_abbreviation}}</p>
+                <p>party_score: {{party_score}}</p>
+            </div>
+            {{else}}
+            no results found
+            {{/polling_unit_results}}
+        </div>
+    </div>
     {{!-- {{#polling_unit_results}}
     <p>{{polling_unit_results}}</p>
     {{else}}
