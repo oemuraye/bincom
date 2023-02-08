@@ -33,15 +33,9 @@
 
     <div class="row d-flex m-2">
         <div class="col-5 border-end">
-            {{#uniqueid}}
-            <div class="d-flex justify-content-around">
-                <p>lga_id: {{lga_id}}</p>
-                <p>uniqueid: {{uniqueid}}</p>
-                <p>polling_unit_id: {{polling_unit_id}}</p>
-            </div>
-            {{else}}
-            <p>Go back home</p>
-            {{/uniqueid}}
+            {{#each polling_unit_id}}
+                <p>polling_unit_id: {{this}}</p>
+            {{/each }}
         </div>
         <div class="col-7">
             {{#polling_unit_results}}

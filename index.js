@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import methodOverride from "method-override";
 import exphbs from "express-handlebars";
+import cors from 'cors'
 
 import routes from "./routes/routes.js";
 import DB from './database/connection.js';
@@ -9,6 +10,7 @@ import { rmSync } from "fs";
 
 const app = express();
 dotenv.config();
+app.use(cors());
 
 // Enable body parser
 app.use(express.json());
