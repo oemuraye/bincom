@@ -64,7 +64,11 @@ export const getLga = async (req, res) => {
 export const getLgaSummary = async (req, res) => {
   
   const { lga_id } = req.body;
-  console.log(lga_id);
+  // console.log(lga_id);
+  if (lga_id === "none") {
+    return res.status(400).json({ message: "No LGA selected"})
+  }
+  
   try {
     DB.query(
       `SELECT * FROM polling_unit WHERE lga_id = ${lga_id}`,

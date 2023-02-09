@@ -3,10 +3,10 @@ const onSubmit = (e) => {
 
   const lga_id = document.querySelector("#lga_id").value;
 
-  if (lga_id === "none") {
-    alert("Select an Option");
-    return;
-  }
+  // if (lga_id === "none") {
+  //   alert("Select an Option");
+  //   return;
+  // }
 
   getLgaResults(lga_id);
 }
@@ -24,16 +24,32 @@ const getLgaResults = async (lga_id) => {
         lga_id,
       }),
     });
-    const data = await response.json();
-    console.log(data);
-
+    const data_results = await response.json();
+    
+    getFilteredPoll(data_results)    
     
     removeSpinner();
   } catch (error) {
     document.querySelector(".msg").textContent = error;
+    removeSpinner();
   }
 }
 
+const getFilteredPoll = (data_results) => {
+  const pollingUnit = data_results.polling_unit_id
+  const pollingUnitResults = data_results.polling_unit_results
+
+  pollingUnit.forEach(pollingUnitID => {
+    pollingUnitResults.filter((pollResults) => {
+      pollResults.polling_unit_uniqueid = pollingUnitID 
+        displayPollingResults(pollResults)
+    })   
+  });
+}
+
+const displayPollingResults = (pollResults) => {
+  console.table(pollResults);
+}
 
 
 const showSpinner = () => {
