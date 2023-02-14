@@ -39,16 +39,49 @@ const getFilteredPoll = (data_results) => {
   const pollingUnit = data_results.polling_unit_id
   const pollingUnitResults = data_results.polling_unit_results
 
+  let tableRows = '';
+  let table = document.querySelector(".data");
+  let poll = []
   pollingUnit.forEach(pollingUnitID => {
     pollingUnitResults.filter((pollResults) => {
-      pollResults.polling_unit_uniqueid = pollingUnitID 
-        displayPollingResults(pollResults)
+      pollResults.polling_unit_uniqueid = pollingUnitID;
+      // poll.push(pollResults)
+      tableRows += `
+        <tr>
+            <td>${pollResults.lga_name}</td>
+            <td>${pollResults.party_score}</td>
+            <td>${pollResults.party_abbreviation}</td>
+        </tr>
+      `;
+      table.innerHTML += tableRows;
+      // displayPollingResults(pollResults);
     })   
   });
 }
 
+// const displayPollingResults = (poll) => {
+//  console.log(typeof poll);
+// }
+
+
 const displayPollingResults = (pollResults) => {
-  console.table(pollResults);
+  let tableRows = '';
+  let table = document.querySelector(".data");
+  // table.innerHTML += tableRows;
+  
+  // const pdp = data.filter((element) => element.party_abbreviation === "PDP")
+  console.log(pollResults);
+  // pollResults.forEach((element) => {
+
+  //   tableRows += `
+  //     <tr>
+  //         <td>${element.lga_name}</td>
+  //         <td>${element.party_score}</td>
+  //         <td>${element.party_abbreviation}</td>
+  //     </tr>
+  //   `;
+  // })
+  // table.innerHTML += tableRows;
 }
 
 
