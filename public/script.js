@@ -1,14 +1,22 @@
+let table = document.querySelector(".data");
+const msgWarning = document.querySelector(".msg");
+
+
 const onSubmit = (e) => {
   e.preventDefault();
 
   const lga_id = document.querySelector("#lga_id").value;
 
-  // if (lga_id === "none") {
-  //   alert("Select an Option");
-  //   return;
-  // }
+  if (lga_id === "none") {
+    msgWarning.textContent = "Select an Option";
+    setTimeout(() => {
+      msgWarning.textContent = "";
+    }, 3000);
+    return;
+  }
 
   getLgaResults(lga_id);
+
 }
 
 const getLgaResults = async (lga_id) => {
@@ -26,11 +34,18 @@ const getLgaResults = async (lga_id) => {
     });
     const data_results = await response.json();
     
-    getFilteredPoll(data_results)    
+    if (table.innerHTML !== "") {
+      table.innerHTML = "";
+    }    
+
+    getFilteredPoll(data_results)
     
     removeSpinner();
   } catch (error) {
-    document.querySelector(".msg").textContent = error;
+    msgWarning.textContent = "Try Again: Something went wrong";
+    setTimeout(() => {
+      msgWarning.textContent = "";
+    }, 3000);
     removeSpinner();
   }
 }
@@ -39,47 +54,37 @@ const getFilteredPoll = (data_results) => {
   const pollingUnit = data_results.polling_unit_id
   const pollingUnitResults = data_results.polling_unit_results
 
-  pollingUnit.forEach(pollingUnitID => {
-    pollingUnitResults.filter((pollResults) => {
-      pollResults.polling_unit_uniqueid = pollingUnitID;
-      displayPollingResults(pollResults);
-    })   
-  });
+  if (pollingUnit.length === 0) {
+    table.innerHTML = `<p>No Result was found</p>`
+  } else {
+    pollingUnit.forEach((pollingUnitID) => {
+      const results = pollingUnitResults.filter(
+        (pollResults) => (pollResults.polling_unit_uniqueid = pollingUnitID)
+      );
+      displayPollingResults(results);
+    });
+  }
 }
 
-// const displayPollingResults = (poll) => {
-//  console.log(typeof poll);
-// }
 
 
-const displayPollingResults = async (pollResults) => {
-  let tableRows = '';
-  let table = document.querySelector(".data");
-  // table.innerHTML += tableRows;
+const displayPollingResults = async (results) => {
+  let tableRows = "";
   
-  // const pdp = data.filter((element) => element.party_abbreviation === "PDP")
-  let data = [];
-  data.push(pollResults)
-  return data
-  // pollResults.forEach((element) => {
+  const pdp = results.filter((element) => element.party_abbreviation === "PDP")
+  
+  pdp.forEach((element) => {
 
-  //   tableRows += `
-  //     <tr>
-  //         <td>${element.lga_name}</td>
-  //         <td>${element.party_score}</td>
-  //         <td>${element.party_abbreviation}</td>
-  //     </tr>
-  //   `;
-  // })
-  // table.innerHTML += tableRows;
+    tableRows += `
+      <tr>
+          <td>${element.polling_unit_uniqueid}</td>
+          <td>${element.party_score}</td>
+          <td>${element.party_abbreviation}</td>
+      </tr>
+    `;
+  })
+  table.innerHTML += tableRows;
 }
-
-async function showData(){
-  const info = await displayPollingResults()
-
-  console.log(info);
-}
-showData();
 
 
 const showSpinner = () => {
